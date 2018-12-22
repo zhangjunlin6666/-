@@ -7,9 +7,6 @@ body{
 a{
     color:#666;
 }
-.h-header{
-
-}
 .h-header .top-nav{
     margin:0 auto;
     width:1190px;
@@ -50,6 +47,10 @@ a{
     width:66px;
     text-align: center;
     display: none;
+    z-index: 1000;
+}
+.h-header .top-nav .search .course-menu li{
+    background-color: #fff;
 }
 .h-header .top-nav .search .course-menu li:hover{
     background-color: #ccc;
@@ -77,9 +78,242 @@ a{
     top:10px;
     left: 10px;
 }
-.h-header .site-nav-wrap{
+
+.h-header .top-nav .user-nav{
+    padding-top: 5px;
+}
+.h-header .top-nav .user-nav ul .user-nav-item{
+    height: 42px;
+    line-height: 42px;
+    float: left;
+    margin:0 11px 0 13px;
+}
+.h-header .top-nav .user-nav .user .user-avatar{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.h-header .top-nav .user-nav .msg-wrap{
+    width: 34px;
+    height: 40px;
+    background:url(./../img/b.jpeg) no-repeat 10px 10px;
+    background-size:100px 60px; 
+}
+.h-header .top-nav .user-nav .msg{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color:red;
+    position: relative;
+    left:25px;
+    top:-10px;
+    color:#fff;
+}
+.h-header .top-nav .user-nav .icon{
+    display: inline-block;
+    border-color: red transparent transparent;
+    position: relative;
+    top:3px;
+}
+.h-header .top-nav .user-nav .user,
+.h-header .top-nav .user-nav .user-role{
+    position: relative;
+}
+.h-header .top-nav .user-nav .username {
+    float: right;
+    margin-left:10px;
+}
+.h-header .top-nav .user-nav .username:hover .user-menu-cover,
+.h-header .top-nav .user-nav .user-role:hover .user-role-cover{
+    display:block;
+}
+.h-header .top-nav .user-nav .username .user-menu-cover,
+.h-header .top-nav .user-nav .user-role .user-role-cover{
+    position: absolute;
+    left:0;
+    top:45px;
+    width:124px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: none;
+    z-index: 1000;
+}
+.h-header .top-nav .user-nav .user-role .user-role-cover{
+    width: 60px;
+}
+.h-header .top-nav .user-nav .username .user-menu-cover li,
+.h-header .top-nav .user-nav .user-role .user-role-cover li{
+    border:1px solid #f1f1f1;
+    background:#fff;
+}
+.h-header .top-nav .user-nav .username .user-menu-cover li,
+.h-header .top-nav .user-nav .user-role .user-role-cover li{
+    border-bottom:0;
+}
+.h-header .top-nav .user-nav .username .user-menu-cover li:last-child,
+.h-header .top-nav .user-nav .user-role .user-role-cover li:last-child{
+    border-bottom:1px solid #f1f1f1;
+}
+.h-header .top-nav .user-nav .username .user-menu-cover li:hover,
+.h-header .top-nav .user-nav .user-role .user-role-cover li:hover{
+    background-color: #f1f1f1;
+}
+
+
+
+
+.site-nav {
+    background:#3598db;
+}
+.site-nav .bg-red-wrap{
+    position: relative;
+    margin-left:1190px;
+}
+.site-nav .bg-red-wrap .bg-red{
+    position: absolute;
+    right:0;
+    width: 50%;
+    background:#e75940;
+    height:60px;
+}
+.site-nav .site-nav-wrap{
     margin:0 auto;
     width:1190px;
     height: 60px;
     line-height: 60px;
+    font-size:16px;
+    color:#fff;
+}
+.site-nav .site-nav-wrap li a{
+    color:#fff;
+}
+.site-nav .site-nav-wrap .main-nav{
+    float: left;
+}
+.site-nav .site-nav-wrap .menu-item{
+    float: left;
+    margin-right: 10px;
+}
+.site-nav .site-nav-wrap .menu-item a{
+    height: 42px;
+    padding: 5px 22px;
+}
+.site-nav .site-nav-wrap .main-nav .menu-item a{
+    border-radius: 3px;
+}
+.site-nav .site-nav-wrap .main-nav .menu-item a.cur{
+    background:#2db0f9;
+}
+.site-nav .site-nav-wrap .main-nav .menu-item a:hover{
+    background:#2db0f9;
+}
+.site-nav .site-nav-wrap .aside-nav li{
+    margin-left:20px;
+    margin-right: 0;
+}
+.site-nav .site-nav-wrap .aside-nav{
+    float: right;
+    padding-left:20px;
+    background:#e75940;
+}
+
+
+/*start banner图*/
+.h-banner{
+    overflow: hidden;
+    width: 100%;
+    min-width:1190px;
+    position: relative;
+}
+
+.h-banner img{
+    width: 100%;
+}
+
+.h-banner .slide-bar{
+    width: 90px;
+    height: 14px;
+    position: absolute;
+    left:50%;
+    bottom:20px;
+    margin-left:-45px;
+}
+
+.h-banner .slide-bar .slide-btn{
+    float: left;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 15px;
+}
+.h-banner .slide-bar .cur-banner{
+    background-color: #f1f1f1;
+}
+.h-banner .slide-bar .slide-btn:hover{
+    background-color: #f1f1f1;
+}
+/*end banner图*/
+
+/*start主体样式*/
+.h-main .p-module{
+    width:1190px;
+    margin:0 auto;
+}
+
+.h-main .couser-list,.h-main .book-list{
+    padding-top: 40px;
+}
+
+.h-main .p-module .p-module-head{
+    font-size: 22px;
+    height: 22px;
+    line-height:22px;
+    color:#1a1a1a;
+}
+
+.h-main .p-module .p-module-title{
+    height: 22px;
+    border-left: 7px solid #2db0f9;
+    padding-left: 18px;
+    display:inline-block;
+}
+.h-main .p-module .p-module-more{
+    float: right;
+    font-size: 12px;
+    color:#2db0f9;
+}
+
+
+.h-main .p-module .p-module-body .p-list-item {
+    padding-top: 30px;
+    margin:0 14px;
+    font-size: 14px;
+    line-height: 28px;
+    width: 209px;
+    float: left;
+}
+.h-main .p-module .p-module-body .p-list-item .p-img img{
+    height: 180px;
+    width: 207px;
+    border: 1px solid #e1e1e1;
+}
+/*end主体样式*/
+
+
+
+/*页脚样式*/
+.h-footer{
+    margin-top:40px;
+    background:#373a43;
+    height: 141px;
+    text-align: center;
+    padding-top: 44px;
+    font-size: 16px;
+    color:#fff;
 }
