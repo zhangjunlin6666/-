@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./documentReady.js'></script>
+    <script src='./eventUtil.js'></script>
+    <script src="./city.js"></script>
+</head>
+<body>
+    <select name="pro" id="pro"></select>
+    <select name="city" id="city"></select>
+    <script>
+        (function(){
+            document.documentReady(function(){
+                var selPro = document.querySelector('#pro');
+                var selCity = document.querySelector('#city');
+                initsel();
+                EventUtil.addEvent(selPro,'change',function(){
+                    initCity();
+                });
+                initCity();
+
+                function initCity(){
+                    selCity.innerHTML = '';
+                    var proVaule = selPro.value,cityVaule=[];
+                    for(let i = 0,{length} = cityData;i < length; i ++){
+                        if(cityData[i].name === proVaule){
+                            cityVaule = cityData[i].city;
+                        }
+                    }
+                    for(let i = 0,{length} = cityVaule;i < length; i ++){
+                        var opt = document.createElement('option');
+                        opt.value = cityVaule[i].name;
+                        opt.label = cityVaule[i].name;
+                        selCity.add(opt);
+
+                        // selPro.appendChild(pro);
+                    }
+                };
+                function initsel(){
+                    for(let i = 0,{length} = cityData;i < length; i ++){
+                        var opt = document.createElement('option');
+                        opt.value = cityData[i].name;
+                        opt.label = cityData[i].name;
+                        selPro.add(opt,null);
+                    }
+                };
+            })
+
+        })()
+    </script>
+</body>
+</html>

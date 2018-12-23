@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./documentReady.js"></script>
+    <script src='./eventUtil.js'></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .a{
+            border:5px solid #000;
+            width: 110%;
+            height: 1500px;
+            margin-top:20px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+
+    </div>
+    <script>
+        document.documentReady(function(){
+            console.log(document.URL);
+            console.log(document.title);
+            var a = document.querySelector('.a');
+            /*
+                事件对象的几个坐标区别
+            */
+            // clientx和clienty是指相对可是区域的坐标，跟有无滚动条无关
+            // pagex和pagey是只相对于文档区域的坐标，跟滚动条有关，ie中不支持pagex和pagey，可以使用以下方式兼容
+            // e.pagex = e.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft)
+            // e.pageY = e.clientY + (document.body.scrollTop || document.documentElement.scrollTop)
+            // offsetX和offsetY是相对于事件源的坐标，例如点击了a，那么点击的坐标原点是a的左手角，点击b同理
+            // screenX和screenY是相对于屏幕的坐标
+
+            EventUtil.addEvent(a,'click',function(e){
+                e = EventUtil.getEvent(e);
+                console.log(`
+                    ===================
+                    clientX:${e.clientX},
+                    clientY:${e.clientY},
+                    ===================
+                    pageX:${e.pageX},
+                    pageY:${e.pageY},
+                    ===================
+                    offsetX:${e.offsetX},
+                    offseY:${e.offsetY},
+                    ===================
+                    screenX:${e.screenX},
+                    screenY:${e.screenY},
+                
+                `);
+            })  
+
+            /*
+                具体一个元素的各个尺寸区别
+                offsetWidth:宽度包括内容、padding、border、margin、滚动条
+                offsetHeight：高度包括内容、padding、border、margin、滚动条
+                offsetTop:距离最近具有定位的父元素顶部的距离
+                offsetLeft:距离最近具有定位的父元素左边的距离
+                clientWidth:宽度包括内容、padding
+                clientHeight：高度包括内容、padding
+                clientTop：上边框的宽度
+                clientLeft：坐边框的宽度
+                scrollWidth：宽度方向的滚动区域
+                scrollHeight：高度方向的滚动区域
+                scrollTop：距离顶部的滚动距离
+                scrollLeft：距离左边的滚动距离
+            */
+            console.log(`
+                ===========================
+                offsetWidth:${a.offsetWidth},
+                offsetHeight:${a.offsetHeight},
+                offsetTop:${a.offsetTop},
+                offsetLeft:${a.offsetLeft},
+                ==============================
+                clientWidth:${a.clientWidth},
+                clientHeight:${a.clientHeight},
+                clientTop:${a.clientTop},
+                clientLeft:${a.clientLeft},
+                ==============================
+                scrollWidth:${a.scrollWidth},
+                scrollHeight:${a.scrollHeight},
+                scrollTop:${document.documentElement.scrollTop},
+                scrollLeft:${document.documentElement.scrollLeft}
+            `)
+        })
+    </script>
+</body>
+</html>

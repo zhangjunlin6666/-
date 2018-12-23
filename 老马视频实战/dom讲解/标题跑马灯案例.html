@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>标题跑马灯案例</title>
+</head>
+<body>
+    <script>
+        /*
+            第一种方式
+        */
+        // setInterval(function(){
+        //     var charArr = document.title.split('');
+        //     var str = charArr.pop();
+        //     charArr.unshift(str);
+        //     document.title = charArr.join("");
+        // },1000)
+
+        /*
+            第二种方式
+        */
+
+        setInterval(function(){
+            var title = document.title;
+            var laststr = title.slice(title.length-1);
+            var beforestr = title.slice(0,title.length-1);
+            document.title = laststr + beforestr;
+        },1000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>穿梭框</title>
+    <script src='./documentReady.js'></script>
+    <script src='./eventUtil.js'></script>
+    <style>
+        select{
+            width:100px;
+            height: 200px;
+            float: left;
+            outline: none;
+        }
+        .box{
+            float: left;
+            width: 100px;
+            padding-top:40px;
+        }
+        .box input{
+            width: 40px;
+            display: block;
+            margin:0 auto;
+            margin-bottom:10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <select name="left" id="left" multiple>
+        <option value="哈哈1" label='哈哈1'></option>
+        <option value="哈哈2" label='哈哈2'></option>
+        <option value="哈哈3" label='哈哈3'></option>
+        <option value="哈哈4" label='哈哈4'></option>
+    </select>
+    <div class="box" id='box'>
+        <input type="button" value=">" dir='add'>
+        <input type="button" value=">>" dir='addAll'>
+        <input type="button" value="<<" dir='delAll'>
+        <input type="button" value="<" dir='del'>
+    </div>
+
+    <select name="right" id="right" multiple>
+
+
+    </select>
+
+    <script>
+        (function(){
+            var left = document.querySelector('#left'),
+                right = document.querySelector('#right');
+            document.documentReady(function(){
+                var box = document.querySelector('#box');
+                EventUtil.addEvent(box,'click',function(e){
+                    var target = EventUtil.getTarget(e);
+
+                    if(target === this){
+                        return;
+                    }
+
+                    var dir = target.getAttribute('dir');
+                    switch (dir){
+                        case 'add' :
+                            add(false,left,right);
+                            break;
+                        case 'addAll' :
+                            add(true,left,right);
+                            break; 
+                        case 'delAll' :
+                            add(true,right,left);
+                            break;
+                        case 'del' :
+                            add(false,right,left);
+                            break;  
+                    }
+                })
+
+                /*
+                    isAll Boolean 是否是移动全部
+                    sel1 string 从哪里来from
+                    sel2 string 到哪里去
+                */
+                function add(isAll,from,to){
+                    var tepArray = [];
+                    for(let i = 0, {length} = from; i < length; i ++){
+                        if(isAll || from[i].selected){
+                            tepArray.push(from[i]);
+                        }
+                    }
+
+                    while(tepArray.length > 0){
+                        var opt = tepArray.pop();
+                        opt.selected = false;
+                        to.add(opt,null);
+                    }
+                }
+            });
+        })()    
+    </script>
+</body>
+</html>
