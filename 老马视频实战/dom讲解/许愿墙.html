@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./documentReady.js'></script>
+    <script src='./eventUtil.js'></script>
+    <script src='./mockData/index.js'></script>
+    <style>
+        html,body,div,p{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background:red url(./img/a.jpeg) repeat;
+        }
+        .wall{
+            width: 960px;
+            height: 627px;
+            background:red url(./img/b.jpeg) no-repeat;
+            margin:0 auto;
+            font-size:12px;
+            color:#fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .tip{
+            width: 280px;
+            background: url(./img/c.jpeg) no-repeat;
+            background-size: 100% 100%;
+            border-radius: 10px;
+            position: absolute;
+            cursor: pointer;
+            padding-bottom:40px;
+        }
+        .tip_h{
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .tip_h div{
+            padding-top:40px;
+            padding-left: 10px;
+        }
+        .tip_h button{
+            position: absolute;
+            right:10px;
+            top:10px;
+            cursor: pointer;
+        }
+        .tip_c{
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+        .tip_f{
+            text-align: right;
+            padding-right: 20px;
+            color:#c0f;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="wall" id="wall">
+    </div>
+
+    <script>
+        (function(){
+            let wall = document.querySelector('#wall');
+            let maxZindex = 1;
+            let tipArray = [];
+            let ismove = false,
+                tmpx = 0,
+                tpmy = 0,
+                moveNode = null;
+            document.documentReady(function(){
+                loadTipDiv(msg);
+                tipArray.forEach(item => {
+                    EventUtil.addEvent(item,'mousedown',function(e){
+                        ismove = true;
+                        moveNode = this;
+                        e = EventUtil.getEvent(e);
+                        tmpx = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                        tmpy = e.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+                        let target = EventUtil.getTarget(e);
+                        maxZindex += 1;
+                        item.style.zIndex = maxZindex;
+                        if(target.tagName.toLowerCase() === 'button'){
+                            item.style.display = 'none';
+                        }
+                    })
+
+                    EventUtil.addEvent(item,'mousemove',function(e){
+                        if(ismove && moveNode == this){
+                            e = EventUtil.getEvent(e);
+                            var pagex = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                            var pagey = e.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+                            var w = pagex - tmpx;
+                            var h = pagey - tmpy;
+                            this.style.left = this.offsetLeft + w + 'px';
+                            this.style.top = this.offsetTop + h + 'px';
+                            tmpx = pagex;
+                            tmpy = pagey;
+                            if(this.offsetLeft + this.offsetWidth > wall.offsetWidth){
+                                this.style.left = wall.offsetWidth - this.offsetWidth + 'px';
+                            }
+                            if(this.offsetLeft <= 0){
+                                this.style.left = 0 + 'px';
+                            }
+                            if(this.offsetTop + this.offsetHeight > wall.offsetHeight){
+                                this.style.top = wall.offsetHeight - this.offsetHeight + 'px';
+                            }
+                            if(this.offsetTop <= 0){
+                                this.style.top = 0 + 'px';
+                            }
+                            
+                        }
+                    })
+
+                    EventUtil.addEvent(item,'mouseup',function(e){
+                        ismove = false;
+                    })
+
+                    EventUtil.addEvent(document,'mouseup',function(e){
+                        ismove = false;
+                    })
+                })
+            })
+            function loadTipDiv(data){
+                let str = '';
+                for(let i = 0,{length} = data; i < length; i ++){
+                    let tipData = data[i];
+                    str += `
+                        <div class='tip'>
+                            <div class='tip_h'>
+                                <div>第${tipData.id}条${tipData.time}</div>
+                                <button>X</button>
+                            </div>
+                            <div class="tip_c">
+                                ${tipData.con}
+                            </div>
+                            <div class="tip_f">
+                                ${tipData.name}
+                            </div>
+                        </div>
+                    `;
+                }
+                wall.innerHTML = str;
+
+                for(let i = 0,{length} = wall.childNodes;i < length; i ++){
+                    if(wall.childNodes[i].nodeType === 1){
+                        wall.childNodes[i].style.left = Math.random()*(960-280) + 'px';
+                        wall.childNodes[i].style.top = Math.random()*(627-wall.childNodes[i].offsetHeight) + 'px';
+                        wall.childNodes[i].style.zIndex = 1;
+                        tipArray.push(wall.childNodes[i]);
+                    }
+                }
+            }
+        })()
+    </script>
+</body>
+</html>

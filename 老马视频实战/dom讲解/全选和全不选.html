@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./documentReady.js'></script>
+    <script src='./eventUtil.js'></script>
+</head>
+<body>
+        全选全不选<input type="checkbox" id='all'>
+        <div class="box">
+            <input type="checkbox">
+            <input type="checkbox">
+            <input type="checkbox">
+            <input type="checkbox">
+        </div>
+    <script>
+         (function(){
+            var allCheck = document.querySelector('#all');
+            var checks = document.querySelectorAll('.box input');
+            document.documentReady(function(){
+                EventUtil.addEvent(allCheck,'click',function(){
+                    checks.forEach(item => {
+                        item.checked = this.checked;
+                    })
+                })
+                
+                checks.forEach(item => {
+                    EventUtil.addEvent(item,'click',clickCheck);
+                })
+
+
+                // 根据子项是否都选中来确定全选全不选的状态
+                function clickCheck(){
+                    allCheck.checked = Array.from(checks).every(item => {
+                        return item.checked == true;
+                    })
+                }
+            })
+        })()
+    </script>
+</body>
+</html>
